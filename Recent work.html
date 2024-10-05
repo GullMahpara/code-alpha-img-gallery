@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<section class="gallerys">
+    <header class="section-head">
+        <h1>Image Gallery</h1>
+    </header>
+
+    <main class="mainContainer">
+        <div class="button-group">
+            <button class="button active" data-filter="*">All</button>
+            <button class="button" data-filter=".handbag-item">Handbags</button>
+            <button class="button" data-filter=".footwear-item">Footwear</button>
+            <button class="button" data-filter=".dress-item">Dress</button>
+        </div>
+
+        <div class="gallery">
+            <!-- Handbag items -->
+            <div class="item handbag-item">
+                <img src="images/bag1.jpg" alt="Handbag 1">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item handbag-item">
+                <img src="images/bag2.jpg" alt="Handbag 2">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item handbag-item">
+                <img src="images/bag3.jfif" alt="Handbag 3">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+
+            <!-- Dress items -->
+            <div class="item dress-item">
+                <img src="images/d1.jpg" alt="Dress 1">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item dress-item">
+                <img src="images/d2.webp" alt="Dress 2">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item dress-item">
+                <img src="images/d3.jfif" alt="Dress 3">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item dress-item">
+                <img src="images/d4.webp" alt="Dress 4">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item dress-item">
+                <img src="images/d5.jfif" alt="Dress 5">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+
+            <!-- Footwear items -->
+            <div class="item footwear-item">
+                <img src="images/fw1.jfif" alt="Footwear 1">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw2.jfif" alt="Footwear 2">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw3.jfif" alt="Footwear 3">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw4.jpg" alt="Footwear 4">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw5.jpg" alt="Footwear 5">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw6.webp" alt="Footwear 6">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+            <div class="item footwear-item">
+                <img src="images/fw7.jfif" alt="Footwear 7">
+                <div class="overlay">
+                    <a href="#">View</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="itemModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="">
+            <p id="modalText"></p>
+        </div>
+    </div>
+</section>
+
+<script>
+$(document).ready(function() {
+    // Filter gallery items based on the button clicked
+    $('.button-group .button').click(function() {
+        $('.button-group .button').removeClass('active');
+        $(this).addClass('active');
+
+        let filterValue = $(this).attr('data-filter');
+
+        if (filterValue === '*') {
+            $('.gallery .item').show();
+        } else {
+            $('.gallery .item').hide();
+            $(filterValue).show();
+        }
+    });
+
+    // When the "View" button is clicked
+    $('.overlay a').click(function(e) {
+        e.preventDefault();
+
+        let imgSrc = $(this).closest('.item').find('img').attr('src');
+        let imgAlt = $(this).closest('.item').find('img').attr('alt');
+
+        $('#modalImg').attr('src', imgSrc);
+        $('#modalText').text(imgAlt);
+
+        $('#itemModal').fadeIn();
+    });
+
+    // Close the modal
+    $('.close').click(function() {
+        $('#itemModal').fadeOut();
+    });
+
+    $(window).click(function(e) {
+        if ($(e.target).hasClass('modal')) {
+            $('#itemModal').fadeOut();
+        }
+    });
+});
+</script>
+
+</body>
+</html>
